@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Support\Facades\Auth;
+
+class MendzerMiddleware
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        if (Auth::user()->usertype == 'menadzer'){
+            return $next($request);
+        }else{
+            return redirect('/mainpage')->with('status','Nemate pristup ovoj stranici');
+        }
+
+    }
+}
